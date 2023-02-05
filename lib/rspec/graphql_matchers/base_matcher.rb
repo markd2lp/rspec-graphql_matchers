@@ -21,9 +21,12 @@ module RSpec
       end
 
       def old_name(a_type)
-        of_type = a_type.of_type
-        final_type = of_type.name.split('::').last
-        final_type += '!' if a_type.non_null?
+        last_atype = a_type
+        while last_atype.respond_to?(:of_type)
+          last_atype = last_atype.of_type
+        end
+        final_type = last_atype.name.split('::').last.gsub('Type', '')
+        final_type += '!' if last_atype.non_null?
         final_type = "[#{final_type}]" if a_type.list?
         final_type
       end
