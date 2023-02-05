@@ -30,6 +30,7 @@ module RSpec
         final_type = final_type.gsub('Type', '') if final_type.ends_with?('Type')
         final_type += '!' if types[-2].non_null?
         final_type = "[#{final_type}]" if a_type.list?
+        final_type = "!" if a_type.non_null?
         final_type
       end
     end
