@@ -18,7 +18,7 @@ module RSpec
       def matches?(graph_object)
         @graph_object = graph_object
 
-        @actual_field = field_collection[@expected_field_name]
+        @actual_field = field_collection[@expected_field_name] || field_collection[@expected_field_name.camelize]
         return false if @actual_field.nil?
 
         @results = @expectations.reject do |matcher|
