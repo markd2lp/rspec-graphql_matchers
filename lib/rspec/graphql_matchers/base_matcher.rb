@@ -15,8 +15,17 @@ module RSpec
 
       def type_name(a_type)
         a_type = a_type.to_graphql if a_type.respond_to?(:to_graphql)
+        a_type = old_name(a_type) if a_type.respond_to?(:of_type)
 
         a_type.to_s
+      end
+
+      def old_name(a_type)
+        of_type = a_type.of_type
+        final_type = of_type.name.split('::').last
+        final_type += '!' if a_type.non_null?
+        final_type = "[#{final_type}]" if a_type.list?
+        final_type
       end
     end
   end
