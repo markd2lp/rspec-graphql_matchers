@@ -22,7 +22,7 @@ module RSpec
       def matches?(graph_object)
         @graph_object = graph_object
 
-        @actual_argument = field_arguments[@expected_arg_name] || field_arguments[@expected_arg_name.camelize]
+        @actual_argument = field_arguments[@expected_arg_name] || field_arguments[@expected_arg_name.camelize(:lower)]
         return false if @actual_argument.nil?
 
         @results = @expectations.select do |matcher|
